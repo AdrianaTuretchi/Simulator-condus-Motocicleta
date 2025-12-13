@@ -1,0 +1,2 @@
+Proiect Motorace https://docs.google.com/document/d/1WKkt1662apzFl7MvyyZ6Lgf9Y6ICgYuzYXHc0sq_k48/edit?tab=t.0#heading=h.bcldxwdefncd Tema lab 6 4.11.2025 https://docs.google.com/document/d/1lU9Khn8wncCAQcVJVmrcXFvYOA-E_VUU8qL3OZRbh3Y/edit?tab=t.0#heading=h.p4u7jo8bg4eb Video : https://youtu.be/OLUCoUbGgQo print1
+<img width="1920" height="1080" alt="521383065-cc25713c-0d3d-4689-a32e-8f8e47343c60" src="https://github.com/user-attachments/assets/33cf8aaf-f807-42a2-a5da-4726edabc4e2" />
