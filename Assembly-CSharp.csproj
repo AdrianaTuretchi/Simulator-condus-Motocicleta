@@ -49,16 +49,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\TDG Kiddy Rides\Scripts\RotationVariable.cs" />
+    <Compile Include="Assets\SegmentController.cs" />
     <Compile Include="Assets\TDG Kiddy Rides\Scripts\RotatePart.cs" />
     <Compile Include="Assets\Scripts\inputTest.cs" />
+    <Compile Include="Assets\restrict.cs" />
+    <Compile Include="Assets\RoadGenerator.cs" />
+    <Compile Include="Assets\Spawnare.cs" />
+    <Compile Include="Assets\corection.cs" />
+    <Compile Include="Assets\LaneSwitcher.cs" />
     <Compile Include="Assets\TDG Kiddy Rides\Scripts\LightsFlasher.cs" />
+    <Compile Include="Assets\HandlebarControl.cs" />
     <Compile Include="Assets\scrip.cs" />
+    <Compile Include="Assets\MotorcycleController.cs" />
     <Compile Include="Assets\scri.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\moving.cs" />
     <Compile Include="Assets\TDG Kiddy Rides\Scripts\Screenshot.cs" />
     <Compile Include="Assets\move.cs" />
     <Compile Include="Assets\TDG Kiddy Rides\Scripts\Rotation.cs" />
+    <Compile Include="Assets\RoadSegment.cs" />
     <Compile Include="Assets\ControlMoto.cs" />
     <Compile Include="Assets\playerSpawner.cs" />
   </ItemGroup>

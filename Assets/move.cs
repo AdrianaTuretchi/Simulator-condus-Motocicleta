@@ -1,4 +1,66 @@
+// Nume: MotorController.cs (Atașat la obiectul 'moto')
+
 using UnityEngine;
+
+public class MotorController2 : MonoBehaviour
+{
+    [Header("Referințe Spawn")]
+    // Trageți obiectul StartPoint aici
+    public Transform startPoint; 
+
+    // Awake este cel mai sigur loc pentru poziționarea inițială în VR
+    void Awake()
+    {
+        if (startPoint != null)
+        {
+            // MUTĂ DOAR RĂDĂCINA (MOTO)
+            transform.position = startPoint.position;
+            transform.rotation = startPoint.rotation;
+        }
+    }
+
+    // Aici vine logica ta de mișcare din Update()
+}
+/*using UnityEngine;
+
+public class MotorController : MonoBehaviour
+{
+    [Header("Movement Settings")]
+    public float constantSpeed = 5f;        // Viteza de înaintare (forward)
+    public float rotationSpeed = 2f;        // Viteză de rotație a motocicletei
+
+    [Header("References")]
+    public Transform headTransform;         // Camera din XR Origin (Main Camera)
+
+    void Update()
+    {
+        // 1. CALCULEAZĂ DIRECȚIA DORITĂ
+        // Extragem doar rotația pe axa Y (Yaw) din privirea camerei, ignorând sus/jos (pitch).
+        Vector3 targetForwardDir = new Vector3(headTransform.forward.x, 0, headTransform.forward.z).normalized;
+        
+        // Calculează rotația necesară pentru a privi în acea direcție
+        if (targetForwardDir != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(targetForwardDir);
+
+            // 2. APLICĂ ROTAȚIA pe obiectul RĂDĂCINĂ (motos)
+            // Rotim lin obiectul 'motos' către direcția privirii jucătorului.
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation, 
+                targetRotation, 
+                rotationSpeed * Time.deltaTime
+            );
+        }
+
+        // 3. APLICĂ MIȘCAREA ÎNAINTE (FORWARD)
+        // Obiectul 'motos' se mișcă acum în direcția sa LOCALĂ (transform.forward)
+        // Folosim Space.Self sau Vector3.forward (implicit Space.Self)
+        transform.Translate(Vector3.forward * constantSpeed * Time.deltaTime);
+    }
+}
+*/
+
+/*using UnityEngine;
 
 public class MotorController : MonoBehaviour
 {
@@ -19,7 +81,7 @@ public class MotorController : MonoBehaviour
     }
 }
 
-
+*/
 /*using UnityEngine;
 
 public class MotorController : MonoBehaviour
