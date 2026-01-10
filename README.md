@@ -1,4 +1,9 @@
 # Proiect Motorace
+## Lab 13
+video : https://youtu.be/DNti2ND1dFQ
+schimbari : am facut 2 scripturi unul pentru testare cu tastatura si unul pentru oculus,
+am schimbat cuburile cu niste conuri ,
+am inceput pregatirea pentru un alt tip de teren
 ## Lab 12
 video :https://www.youtube.com/watch?v=fyfTnGNE_bU  
 schimbari : decor , ecrean de final si restart
