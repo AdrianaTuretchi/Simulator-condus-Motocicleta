@@ -59,6 +59,7 @@
     <Compile Include="Assets\restrict.cs" />
     <Compile Include="Assets\RoadGenerator.cs" />
     <Compile Include="Assets\Spawnare.cs" />
+    <Compile Include="Assets\Scripts\KeyBoardSteering.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
@@ -70,11 +71,13 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
+    <Compile Include="Assets\Scripts\HandsInput.cs" />
     <Compile Include="Assets\LaneSwitcher.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\TDG Kiddy Rides\Scripts\LightsFlasher.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\HandlebarControl.cs" />
+    <Compile Include="Assets\Scripts\vrhandsteering.cs" />
     <Compile Include="Assets\UIManager.cs" />
     <Compile Include="Assets\scrip.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />

@@ -29,7 +29,15 @@ public class SegmentController : MonoBehaviour
                 Vector3 spawnPos = new Vector3(spawnX, 0.5f, transform.position.z + spawnZ);
                 
                 // Instanțiază obstacolul ca fiu al segmentului (pentru organizare)
-                Instantiate(obstaclePrefab, spawnPos, Quaternion.identity, transform);
+              //  Instantiate(obstaclePrefab, spawnPos, Quaternion.identity, transform);
+              GameObject obstacle = Instantiate(obstaclePrefab, spawnPos, Quaternion.identity);
+
+// 2. Îl facem copil al segmentului, dar folosim 'true' la worldPositionStays
+// Totuși, pentru a evita orice deformare cauzată de scale-ul segmentului, 
+// cel mai bine este să îl lași fără părinte sau să îi setezi scale-ul manual la (1,1,1).
+
+obstacle.transform.SetParent(transform); 
+obstacle.transform.localScale = new Vector3(2*1/transform.localScale.x, 2*1/transform.localScale.y, 2*1/transform.localScale.z);
             }
         }
     }
