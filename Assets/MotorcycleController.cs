@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -20,6 +21,54 @@ public class MotorcycleController : MonoBehaviour
     private Rigidbody rb;
     private int targetLane = 0;        
     private float currentRollInput = 0f; 
+    
+
+
+    [Header("Advanced Speed Setup")]
+public float currentSpeed = 0f;      // Viteza actuală
+public float maxSpeed = 30f;         // Viteza maximă pe care o poate atinge
+public float acceleration = 5f;      // Cât de repede crește viteza pe secundă
+public float deceleration = 3f;      // Cât de repede scade când nu accelerezi
+public float brakingForce = 10f;     // Cât de repede scade când pui frână
+
+void FixedUpdate()
+{
+    if (isGameOver || !isEngineRunning) 
+    {
+        currentSpeed = Mathf.Lerp(currentSpeed, 0, Time.fixedDeltaTime * deceleration);
+        return;
+    }
+
+    // Aplicăm mișcarea bazată pe currentSpeed
+    Vector3 velocity = transform.forward * currentSpeed;
+    velocity.y = rb.linearVelocity.y; // Păstrăm gravitația
+    rb.linearVelocity = velocity;
+
+    // Logica de translație laterală (X) rămâne neschimbată...
+}
+
+// Metodă pentru a controla accelerația din exterior
+public void ApplyThrottle(float input) // input între -1 (frână) și 1 (accelerație)
+{
+    if (input > 0) 
+    {
+        currentSpeed += acceleration * input * Time.deltaTime;
+    }
+    else if (input < 0) 
+    {
+        currentSpeed += brakingForce * input * Time.deltaTime;
+    }
+    else 
+    {
+        // Decelerare naturală (fricțiune cu aerul/solul)
+        currentSpeed = Mathf.MoveTowards(currentSpeed, 5f, deceleration * Time.deltaTime);
+    }
+
+    currentSpeed = Mathf.Clamp(currentSpeed, 0, maxSpeed);
+}
+
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -45,7 +94,7 @@ public class MotorcycleController : MonoBehaviour
             Debug.Log("Motocicleta a pornit! Schimbă banda cu butoanele X/A.");
         }
     }
-    void FixedUpdate()
+   /* void FixedUpdate()
 {
     if (isGameOver)
     {
@@ -81,7 +130,7 @@ public class MotorcycleController : MonoBehaviour
     {
         rb.linearVelocity = rb.linearVelocity.normalized * (forwardSpeed * 1.5f); // Folosim proprietatea corectă: rb.velocity
     }
-}
+}*/
     /*void FixedUpdate()
     {
         if (isGameOver)

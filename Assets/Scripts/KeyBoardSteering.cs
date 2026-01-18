@@ -5,12 +5,20 @@ public class KeyboardSteering : MonoBehaviour
 {
     public MotorcycleController bikeController;
 
+
     void Update()
     {
+        var keyboard = Keyboard.current;
+    if (keyboard == null) return;
+
+    float throttleInput = 0;
+    if (keyboard.wKey.isPressed) throttleInput = 1;
+    if (keyboard.sKey.isPressed) throttleInput = -1;
+
+    bikeController.ApplyThrottle(throttleInput);
         if (bikeController == null) return;
 
         // Verificăm tastatura folosind noul sistem
-        var keyboard = Keyboard.current;
         if (keyboard == null) return;
 
         // Detectăm apăsarea tastei A (Stânga)
