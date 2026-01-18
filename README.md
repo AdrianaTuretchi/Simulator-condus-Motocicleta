@@ -1,4 +1,7 @@
 # Proiect Motorace
+## Lab 14
+video : https://youtu.be/FfCJuidNm_s  
+schimbari : am pus muzica de fundal , restructurat scena (scenafinala) a facut refactor la scripturi pentru modularitate , am adaugat benzi albe pentru a sti unde te afli , rezlovare de bug-uri minore
 ## Lab 13
 video : https://youtu.be/DNti2ND1dFQ
 schimbari : am facut 2 scripturi unul pentru testare cu tastatura si unul pentru oculus,
