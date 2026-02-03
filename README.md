@@ -1,4 +1,7 @@
 # Proiect Motorace
+## Ultimele schimbari 
+Aceasta este versiunea finala a proiectului . 
+video : https://youtu.be/Pv912bgJuzc
 ## Lab 14
 video : https://youtu.be/FfCJuidNm_s  
 schimbari : am pus muzica de fundal , restructurat scena (scenafinala) a facut refactor la scripturi pentru modularitate , am adaugat benzi albe pentru a sti unde te afli , rezlovare de bug-uri minore
