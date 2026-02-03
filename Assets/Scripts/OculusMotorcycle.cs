@@ -1,4 +1,163 @@
 using UnityEngine;
+using TMPro;
+using UnityEngine.XR;
+
+public class OculusMotorcycle : MonoBehaviour
+{
+    [Header("UI & Display")]
+    public TextMeshProUGUI textViteza;
+    public TextMeshProUGUI textGear;
+
+    [Header("Setari Benzi")]
+    public float[] lanes = { -3f, 0f, 3f };
+    private int currentLane = 1;
+    public float laneChangeSpeed = 15f;
+    private bool canChange = true;
+
+    [Header("Sistem Cutie Viteze")]
+    public int gear = 1;
+    public int maxGear = 5;
+    public float currentViteza = 0f;
+    private int[] maxGearSpeeds = { 22, 42, 62, 82, 120 };
+    private int[] minGearSpeeds = { 0, 22, 42, 62, 82 };
+    private int[] idleThresholds = { 10, 30, 52, 72, 90 };
+
+    [Header("Input VR")]
+    public float tiltThreshold = 0.15f;
+    private bool canShift = true;
+
+    void Update()
+    {
+        HandleSteering();
+        HandleGears();
+        HandleSpeed();
+        ApplyMovement();
+        UpdateUI();
+    }
+
+    void HandleSteering()
+    {
+        if (!canChange) return;
+
+        float vrTilt = GetVRTilt();
+        // Mana dreapta sus -> Mergi la STANGA
+        if (vrTilt > tiltThreshold && currentLane > 0)
+        {
+            currentLane--;
+            StartCoroutine(LaneCooldown());
+        }
+        // Mana stanga sus -> Mergi la DREAPTA
+        else if (vrTilt < -tiltThreshold && currentLane < 2)
+        {
+            currentLane++;
+            StartCoroutine(LaneCooldown());
+        }
+    }
+
+    void HandleGears()
+    {
+        if (!canShift) return;
+
+        bool gearUpPressed = GetButtonDown(XRNode.RightHand, CommonUsages.primaryButton); // Butonul A
+        bool gearDownPressed = GetButtonDown(XRNode.LeftHand, CommonUsages.primaryButton); // Butonul X
+
+        // Gear UP
+        if (gearUpPressed && gear < maxGear && currentViteza >= idleThresholds[gear - 1])
+        {
+            gear++;
+            StartCoroutine(ShiftCooldown());
+        }
+        // Gear DOWN
+        else if (gearDownPressed && gear > 1 && currentViteza <= idleThresholds[gear - 1])
+        {
+            gear--;
+            StartCoroutine(ShiftCooldown());
+        }
+    }
+
+    void HandleSpeed()
+    {
+        float accelInput = GetTriggerInput();
+        float brakeInput = GetGripInput();
+
+        // Acceleratie (W echivalent)
+        if (accelInput > 0.1f && currentViteza < maxGearSpeeds[gear - 1])
+        {
+            currentViteza += 0.3f * accelInput;
+        }
+        // Decelerare naturala (Idle)
+        else if (currentViteza > idleThresholds[gear - 1])
+        {
+            currentViteza -= 0.05f;
+        }
+
+        // Frana (S echivalent)
+        if (brakeInput > 0.1f && currentViteza > minGearSpeeds[gear - 1])
+        {
+            currentViteza -= 0.3f * brakeInput;
+        }
+
+        // Siguranta sa nu scada sub 0
+        if (currentViteza < 0) currentViteza = 0;
+    }
+
+    void ApplyMovement()
+    {
+        // Miscare inainte
+        transform.Translate(Vector3.forward * currentViteza * Time.deltaTime);
+
+        // Miscare laterala (Lerp intre benzi)
+        Vector3 targetPos = new Vector3(lanes[currentLane], transform.position.y, transform.position.z);
+        transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * laneChangeSpeed);
+    }
+
+    void UpdateUI()
+    {
+        if (textGear != null) textGear.text = "Gear: " + gear.ToString();
+        if (textViteza != null) textViteza.text = ((int)currentViteza).ToString() + " km/h";
+    }
+
+    // --- HELPER METHODS PENTRU VR ---
+
+    float GetVRTilt()
+    {
+        InputDevices.GetDeviceAtXRNode(XRNode.LeftHand).TryGetFeatureValue(CommonUsages.devicePosition, out Vector3 lPos);
+        InputDevices.GetDeviceAtXRNode(XRNode.RightHand).TryGetFeatureValue(CommonUsages.devicePosition, out Vector3 rPos);
+        return rPos.y - lPos.y;
+    }
+
+    float GetTriggerInput()
+    {
+        InputDevices.GetDeviceAtXRNode(XRNode.RightHand).TryGetFeatureValue(CommonUsages.trigger, out float val);
+        return val;
+    }
+
+    float GetGripInput()
+    {
+        InputDevices.GetDeviceAtXRNode(XRNode.RightHand).TryGetFeatureValue(CommonUsages.grip, out float val);
+        return val;
+    }
+
+    bool GetButtonDown(XRNode node, InputFeatureUsage<bool> button)
+    {
+        InputDevices.GetDeviceAtXRNode(node).TryGetFeatureValue(button, out bool pressed);
+        return pressed;
+    }
+
+    System.Collections.IEnumerator LaneCooldown()
+    {
+        canChange = false;
+        yield return new WaitForSeconds(0.3f);
+        canChange = true;
+    }
+
+    System.Collections.IEnumerator ShiftCooldown()
+    {
+        canShift = false;
+        yield return new WaitForSeconds(0.5f); // Previne schimbarea prea rapida a vitezelor
+        canShift = true;
+    }
+}/*using UnityEngine;
 using UnityEngine.XR;
 
 public class OculusMotorcycle : MonoBehaviour
@@ -88,7 +247,7 @@ public class OculusMotorcycle : MonoBehaviour
         yield return new WaitForSeconds(0.4f);
         canChange = true;
     }
-}
+}*/
 /*using UnityEngine;
 using UnityEngine.XR;
 
